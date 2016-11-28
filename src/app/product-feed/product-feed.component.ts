@@ -16,8 +16,8 @@ export class ProductFeedComponent implements OnInit {
   getProducts() {
     var that = this
     this.apiRequestsService.getJSONData().subscribe(function(result){
-      that.products = result.json().products
-      console.log(that.products)
+      that.products = result.products
+      console.log(that.products, 'another')
     })
 
   }

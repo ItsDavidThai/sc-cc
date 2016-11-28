@@ -1,3 +1,9 @@
 <div>
-  <app-product-item></app-product-item>
+  product list
+  <div class="row">
+    <div *ngFor="let product of products">
+      <app-product-item [productData]='product' class="col s12 m6 l3"></app-product-item>
+    </div>
+
+  </div>
 </div>
