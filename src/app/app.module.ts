@@ -9,7 +9,8 @@ import { ApiRequestsService } from './services/api-requests.service';
 import { DisplayoptionsComponent } from './displayoptions/displayoptions.component';
 import { ProductFiltersComponent } from './product-filters/product-filters.component';
 import { ProductFeedComponent } from './product-feed/product-feed.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component'
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ProductItemComponent } from './product-item/product-item.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component'
     DisplayoptionsComponent,
     ProductFiltersComponent,
     ProductFeedComponent,
-    NavBarComponent
+    NavBarComponent,
+    ProductItemComponent
   ],
   imports: [
     BrowserModule,
