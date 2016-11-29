@@ -103,6 +103,9 @@ export class ProductFeedComponent implements OnInit {
         // in the product name
         return (lowercaseName.includes(lowercasePhrase))
       })
+    } else {
+      // if there is no phrase default to full product list
+      this.displayedProducts = this.products
     }
   }
   /*
