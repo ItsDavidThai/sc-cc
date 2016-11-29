@@ -1,12 +1,24 @@
+<!-- container that holds product items -->
 <div>
   <h2 class="center">Products</h2>
   <div class="row">
-    <app-product-filters (sortChoosen)="sortFeed($event)" (filterChoosen)="filterFeed($event)" class="col s12 m12 l12"></app-product-filters>
+  <!--
+      shortChoosen/phraseFilterChanged/priceFilterChanged
+      are custom event bindings that will listen when
+      those events are triggered and then run their given functions
+   -->
+    <app-product-filters (sortChoosen)="sortFeed($event)"
+      (phraseFilterChanged)="filterByPhrase($event)"
+      (priceFilterChanged)="filterByPrice($event)"
+      class="col s12 m12 l12">
+    </app-product-filters>
   </div>
   <div class="row">
     <div *ngFor="let product of displayedProducts">
       <app-product-item [productData]='product' class="col s12 m6 l3"></app-product-item>
     </div>
-
+    <div *ngIf="displayedProducts.length <= 0">
+      Sorry, No results matching that criteria
+    </div>
   </div>
 </div>

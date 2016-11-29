@@ -1,6 +1,6 @@
-
+<!-- container for product filter options -->
 <div class="row">
-
+  <!-- SORT -->
   <div (change)="onChooseSort($event)" class="col s6 m6 l6">
     <label>Sort</label>
     <select class="browser-default">
@@ -18,23 +18,52 @@
     </div>
   </div>
 
+  <!-- FILTERS -->
+  <!-- Price Filters -->
   <div class="form-group col s6 m6 l6">
     <div class="input-field col s6">
-      <input type="number" pattern="^\d{1,8}(?:\.\d{1,2})?$" [(ngModel)]="min" (ngModelChange)="onFiltersChange($event)" placeholder="Min Price" id="price-min" type="text" class="form-control validate">
-      <label for="price-min" data-error="Req: numbers only, up to 2 decimals">Min Price</label>
+      <input type="number"
+        pattern="^\d{1,8}(?:\.\d{1,2})?$"
+        [(ngModel)]="min"
+        (ngModelChange)="onPriceFilterChange($event)"
+        id="price-min"
+        type="text"
+        class="form-control validate"
+      >
+      <label for="price-min" data-error="Req: numbers only, up to 2 decimals">
+        Min Price
+      </label>
     </div>
     <div class="input-field col s6">
-      <input type="number" pattern="^\d{1,8}(?:\.\d{1,2})?$" [(ngModel)]="max" (ngModelChange)="onFiltersChange($event)" placeholder="Max Price" id="price-max" type="text" class="form-control validate">
-      <label for="price-max" data-error="Req: numbers only, up to 2 decimals">Max Price</label>
+      <input type="number"
+        pattern="^\d{1,8}(?:\.\d{1,2})?$"
+        [(ngModel)]="max"
+        (ngModelChange)="onPriceFilterChange($event)"
+        id="price-max"
+        type="text"
+        class="form-control validate"
+      >
+      <label for="price-max" data-error="Req: numbers only, up to 2 decimals">
+        Max Price
+      </label>
     </div>
     <small *ngIf="min > max">
       Invalid Input Min must be less than Max
     </small>
 
+    <!-- Phrase Filter -->
     <div class="input-field col s6">
-      <input type="text" pattern="/^[A-Z]+$/i" [(ngModel)]="phrase" (ngModelChange)="onFiltersChange($event)" placeholder="Words" id="word-filter" class="form-control validate">
-      <label for="word-filter" data-error="Req: words only">Filter by Words</label>
+      <input type="text"
+        pattern="/^[A-Za-z]+$/"
+        [(ngModel)]="phrase"
+        (ngModelChange)="onPhraseFilterChange($event)"
+        placeholder="Words"
+        id="word-filter"
+        class="form-control validate"
+      >
+      <label for="word-filter">
+        Filter by Words
+      </label>
     </div>
   </div>
-
 </div>

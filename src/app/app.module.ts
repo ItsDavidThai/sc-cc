@@ -10,7 +10,10 @@ import { ProductFiltersComponent } from './product-filters/product-filters.compo
 import { ProductFeedComponent } from './product-feed/product-feed.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ProductItemComponent } from './product-item/product-item.component'
-
+/*
+  this acts as a map to all our files and all components and modules must be listed here
+  angular cli automatically adds components but services must be added manually
+*/
 @NgModule({
   declarations: [
     AppComponent,
