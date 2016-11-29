@@ -12,7 +12,7 @@ export class ApiRequestsService {
       var result = result.json()
       result.products.map(function(product){
         product.mainImage.ref = 'http:'+ product.mainImage.ref
-        product.priceInDollars = (product.defaultPriceInCents / 60).toFixed(2)
+        product.priceInDollars = Number((product.defaultPriceInCents / 60).toFixed(2))
       })
       return result
     })

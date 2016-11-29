@@ -1,9 +1,9 @@
 <div>
   <div class="row">
-    <app-product-filters (sortChoosen)="sortFeed($event)" class="col s12 m6 l3"></app-product-filters>
+    <app-product-filters (sortChoosen)="sortFeed($event)" (filterChoosen)="filterFeed($event)" class="col s12 m12 l12"></app-product-filters>
   </div>
   <div class="row">
-    <div *ngFor="let product of products">
+    <div *ngFor="let product of displayedProducts">
       <app-product-item [productData]='product' class="col s12 m6 l3"></app-product-item>
     </div>
 

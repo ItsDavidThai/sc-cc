@@ -8,6 +8,7 @@ import { ApiRequestsService } from '../services/api-requests.service'
 })
 export class ProductFeedComponent implements OnInit {
   private products: Array<Object>
+  private displayedProducts: Array<Object>
   private sortOptions = {
     categories: {
       Price: 'defaultPriceInCents',
@@ -16,6 +17,10 @@ export class ProductFeedComponent implements OnInit {
     },
     direction:'asc',
     selectedCategory: 'defaultPriceInCents'
+  }
+  private filterOptions = {
+    min: 0,
+    max: Infinity
   }
   constructor(private apiRequestsService: ApiRequestsService) { }
 
@@ -27,6 +32,7 @@ export class ProductFeedComponent implements OnInit {
     var that = this
     this.apiRequestsService.getJSONData().subscribe(function(result){
       that.products = result.products
+      that.displayedProducts = result.products
       console.log(that.products)
     })
   }
@@ -39,16 +45,30 @@ export class ProductFeedComponent implements OnInit {
     this.sortOptions.direction = direction
 
     if(this.sortOptions.direction === 'asc') {
-      this.products.sort(function(a, b) {
-        return a[that.sortOptions.selectedCategory] > b[that.sortOptions.selectedCategory]
+      this.displayedProducts.sort(function(a, b) {
+        return a[that.sortOptions.selectedCategory] < b[that.sortOptions.selectedCategory]
       })
     } else if ( this.sortOptions.direction === 'desc') {
-      this.products.sort(function(a, b) {
-        return a[that.sortOptions.selectedCategory] < b[that.sortOptions.selectedCategory]
+      this.displayedProducts.sort(function(a, b) {
+        return a[that.sortOptions.selectedCategory] > b[that.sortOptions.selectedCategory]
       })
     }
   }
-  filterFeed(){
+  filterFeed(value){
+    var that = this
+    this.filterOptions.min = value.minPrice
+    this.filterOptions.max = value.maxPrice
+
+    this.displayedProducts = this.products.filter(function(product){
+      var min = that.filterOptions.min
+      var max = that.filterOptions.max
+      return (product.priceInDollars >= min && product.priceInDollars <= max)
+    })
+  }
+  filterByWord() {
+
+  }
+  filterByPrice() {
 
   }
 
