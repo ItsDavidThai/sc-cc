@@ -11,6 +11,9 @@ export class ProductFiltersComponent implements OnInit {
   @Output() filterChoosen: EventEmitter<any> = new EventEmitter<any>();
   private min = 0
   private max = 100
+  private phrase = ''
+  private sortValue = 'Price'
+  private sortDirection = 'desc'
 
   constructor() { }
 
@@ -20,16 +23,14 @@ export class ProductFiltersComponent implements OnInit {
 
   onChooseSort(sortOption) {
     console.log(sortOption)
-    this.sortChoosen.emit([sortOption.target.value, sortOption.target.checked])
+    this.sortValue = sortOption.target.value === 'on' ? this.sortValue : sortOption.target.value;
+    this.sortDirection = sortOption.target.checked ? 'asc' : 'desc'
+    console.log(this.sortValue,'filter')
+    this.sortChoosen.emit([this.sortValue, this.sortDirection])
   }
-  onMinPriceChange(min) {
-    this.min = min
-    console.log(this.min)
-    this.filterChoosen.emit({minPrice: min, maxPrice: this.max})
-  }
-  onMaxPriceChange(max) {
-    this.max = max
-    console.log(this.max)
-    this.filterChoosen.emit({minPrice: this.min, maxPrice: max})
+
+  onFiltersChange(event) {
+    console.log(event)
+    this.filterChoosen.emit({minPrice: this.min, maxPrice: this.max, phrase: this.phrase})
   }
 }

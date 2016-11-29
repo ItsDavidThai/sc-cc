@@ -4,33 +4,37 @@
   <div (change)="onChooseSort($event)" class="col s6 m6 l6">
     <label>Sort</label>
     <select class="browser-default">
-      <option value="" disabled selected>Choose your option</option>
-      <option value="Price">Price</option>
+      <option value="Price" selected>Price</option>
       <option value="Name">Name</option>
       <option value="Date">Date</option>
     </select>
     <div class="switch">
       <label>
-        ASC
+        DESC
         <input type="checkbox">
         <span class="lever"></span>
-        DESC
+        ASC
       </label>
     </div>
   </div>
 
-  <div class="col s6 m6 l6">
+  <div class="form-group col s6 m6 l6">
     <div class="input-field col s6">
-      <input type="number" pattern="^\d{1,8}(?:\.\d{1,2})?$" [ngModel]="min" (ngModelChange)="onMinPriceChange($event)" placeholder="Min Price" id="price-min" type="text" class="validate">
+      <input type="number" pattern="^\d{1,8}(?:\.\d{1,2})?$" [(ngModel)]="min" (ngModelChange)="onFiltersChange($event)" placeholder="Min Price" id="price-min" type="text" class="form-control validate">
       <label for="price-min" data-error="Req: numbers only, up to 2 decimals">Min Price</label>
     </div>
     <div class="input-field col s6">
-      <input type="number" pattern="^\d{1,8}(?:\.\d{1,2})?$" [ngModel]="max" (ngModelChange)="onMaxPriceChange($event)" placeholder="Max Price" id="price-max" type="text" class="validate">
+      <input type="number" pattern="^\d{1,8}(?:\.\d{1,2})?$" [(ngModel)]="max" (ngModelChange)="onFiltersChange($event)" placeholder="Max Price" id="price-max" type="text" class="form-control validate">
       <label for="price-max" data-error="Req: numbers only, up to 2 decimals">Max Price</label>
     </div>
     <small *ngIf="min > max">
       Invalid Input Min must be less than Max
     </small>
+
+    <div class="input-field col s6">
+      <input type="text" pattern="/^[A-Z]+$/i" [(ngModel)]="phrase" (ngModelChange)="onFiltersChange($event)" placeholder="Words" id="word-filter" class="form-control validate">
+      <label for="word-filter" data-error="Req: words only">Filter by Words</label>
+    </div>
   </div>
 
 </div>

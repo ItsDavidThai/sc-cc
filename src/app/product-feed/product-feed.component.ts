@@ -15,12 +15,13 @@ export class ProductFeedComponent implements OnInit {
       Name: 'name',
       Date: 'createdAt'
     },
-    direction:'asc',
+    sortDirection:'desc',
     selectedCategory: 'defaultPriceInCents'
   }
   private filterOptions = {
     min: 0,
-    max: Infinity
+    max: Infinity,
+    phrase: ''
   }
   constructor(private apiRequestsService: ApiRequestsService) { }
 
@@ -38,23 +39,39 @@ export class ProductFeedComponent implements OnInit {
   }
   sortFeed(value){
     var that = this
-    // passed in value can be undefined, if undefined set to valid input
-    value[1] = typeof value[1] === 'undefined' ? this.sortOptions.direction : value[1]
-    var direction = value[1] ? 'asc' : 'desc'
-    this.sortOptions.selectedCategory =  this.sortOptions.categories[value[0]] || this.sortOptions.selectedCategory
-    this.sortOptions.direction = direction
-
-    if(this.sortOptions.direction === 'asc') {
-      this.displayedProducts.sort(function(a, b) {
-        return a[that.sortOptions.selectedCategory] < b[that.sortOptions.selectedCategory]
-      })
-    } else if ( this.sortOptions.direction === 'desc') {
+    this.sortOptions.selectedCategory =  this.sortOptions.categories[value[0]]
+    this.sortOptions.sortDirection = value[1]
+    console.log(this.sortOptions.sortDirection === 'asc', this.sortOptions.sortDirection, 'asc')
+    console.log(this.sortOptions.sortDirection === 'desc', this.sortOptions.sortDirection, 'desc')
+        console.log(that.displayedProducts)
+    if(this.sortOptions.sortDirection === 'asc') {
+      console.log(this.sortOptions)
       this.displayedProducts.sort(function(a, b) {
         return a[that.sortOptions.selectedCategory] > b[that.sortOptions.selectedCategory]
       })
+    } else if ( this.sortOptions.sortDirection === 'desc') {
+      this.displayedProducts.sort(function(a, b) {
+        return a[that.sortOptions.selectedCategory] < b[that.sortOptions.selectedCategory]
+      })
     }
+    console.log(that.displayedProducts)
   }
   filterFeed(value){
+    this.filterByPrice(value)
+    this.filterByPhrase(value)
+  }
+  filterByPhrase(value) {
+    var that = this
+    this.filterOptions.phrase = value.phrase
+    if (this.filterOptions.phrase !== '') {
+      this.displayedProducts = this.products.filter(function(product) {
+        var lowercasePhrase = that.filterOptions.phrase.toLowerCase()
+        var lowercaseName = product.name.toLowerCase()
+        return (lowercaseName.includes(lowercasePhrase))
+      })
+    }
+  }
+  filterByPrice(value) {
     var that = this
     this.filterOptions.min = value.minPrice
     this.filterOptions.max = value.maxPrice
@@ -64,12 +81,6 @@ export class ProductFeedComponent implements OnInit {
       var max = that.filterOptions.max
       return (product.priceInDollars >= min && product.priceInDollars <= max)
     })
-  }
-  filterByWord() {
-
-  }
-  filterByPrice() {
-
   }
 
 }
