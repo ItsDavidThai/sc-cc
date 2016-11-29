@@ -1,3 +1,19 @@
-<p>
-  product-filters works!
-</p>
+
+
+<div (change)="onChooseSort($event)">
+  <label>Sort</label>
+  <select class="browser-default">
+    <option value="" disabled selected>Choose your option</option>
+    <option value="Price">Price</option>
+    <option value="Name">Name</option>
+    <option value="Date">Date</option>
+  </select>
+  <div class="switch">
+    <label>
+      ASC
+      <input type="checkbox">
+      <span class="lever"></span>
+      DESC
+    </label>
+  </div>
+</div>
