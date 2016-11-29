@@ -29,7 +29,7 @@ export class ProductFiltersComponent {
   */
   onChooseSort(sortOption) {
     // if there is no sort type selected, default input is 'on', to remedy this we use the components default sort type
-    this.sortValue = sortOption.target.value === 'on' || sortOption.target.value === '' ? this.sortValue : sortOption.target.value;
+    this.sortValue = sortOption.target.value === 'on' ? this.sortValue : sortOption.target.value;
     // the html element used for asc/desc is a checked box element and returns true or false.
     // if checked === true that means the user wants to sort by asc
     this.sortDirection = sortOption.target.checked ? 'asc' : 'desc'

@@ -56,6 +56,8 @@ export class ProductFeedComponent implements OnInit {
     this.apiRequestsService.getJSONData().subscribe(function(result) {
       that.products = result.products
       that.displayedProducts = result.products
+      // default sort will be desc and price [0,0] are placeholders
+      that.sortFeed([0,0])
     })
   }
   /*
@@ -66,9 +68,11 @@ export class ProductFeedComponent implements OnInit {
   sortFeed(value) {
     // keep a reference to the current context
     var that = this
-    // set component's sortOptions with the value input
-    this.sortOptions.selectedCategory = this.sortOptions.categories[value[0]]
-    this.sortOptions.sortDirection = value[1]
+    // set component's sortOptions with the value input.
+    // on init will default to the component defaults price and desc
+    this.sortOptions.selectedCategory = this.sortOptions.categories[value[0]] ||
+    this.sortOptions.categories.Price
+    this.sortOptions.sortDirection = value[1] || this.sortOptions.sortDirection
     // a native sort function is used to sort from greatest -> smallest(DESC)
     // or smallest -> greatest(ASC) along with the current category
     if(this.sortOptions.sortDirection === 'asc') {
